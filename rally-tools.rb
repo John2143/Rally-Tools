@@ -51,6 +51,7 @@ class RallyTools
 
     # check for a successful response
     if ![200, 201, 204].include?(resp.code)
+      p resp
       raise HTTPRequestError.new(resp)
     end
 

@@ -1,5 +1,6 @@
 require 'optparse'
 require 'tempfile'
+require 'cgi'
 require_relative '../preset.rb'
 require_relative './deployment.rb'
 require_relative '../rally-tools.rb'
@@ -14,8 +15,12 @@ OptionParser.new do |parser|
 end.parse!
 
 preset = Preset.new(options[:file])
-body = RallyTools.make_api_request("/presets?filter=name=#{preset.name}")
-exit if body['data'].empty?
+body = RallyTools.make_api_request("/presets?filter=name=#{CGI.escape(preset.name)}")
+if body['data'].empty?
+  p "This file does not exist by this name"
+  exit
+end
+
 body = RallyTools.make_api_request(nil, path_override: body['data'][0]['links']['providerData'])
 
 file = Tempfile.new(["rallydiff", ".py"])
