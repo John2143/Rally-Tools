@@ -14,7 +14,7 @@ OptionParser.new do |parser|
   end
 end.parse!
 
-preset = Preset.new(options[:file])
+preset = Preset.new(:local, options[:file])
 body = RallyTools.make_api_request("/presets?filter=name=#{CGI.escape(preset.name)}")
 if body['data'].empty?
   p "This file does not exist by this name"

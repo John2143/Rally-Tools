@@ -1,6 +1,5 @@
 # The beginning of a set of tools to make working with Rally easier.
 require_relative './errors.rb'
-require_relative './preset.rb'
 require 'http'
 require 'json'
 require 'pry'
@@ -31,7 +30,7 @@ class RallyTools
   @rally_api_key = ENV["rally_api_key_#{@env_name}"]
   @rally_api = ENV["rally_api_url_#{@env_name}"]
 
-  def self.make_api_request(path, path_override: nil, payload: nil, one_line: false, suppress: false, patch: false, put: false)
+  def self.make_api_request(path, path_override: nil, payload: nil, one_line: false, suppress: false, patch: false, put: false, never_json: false)
     path = path_override || @rally_api + path
     endchar = one_line ? "\t" : "\n"
 
@@ -58,6 +57,7 @@ class RallyTools
     # parse response body into hash
     body = nil
     begin
+      raise JSON::ParserError if never_json
       body = JSON[resp.body]
     rescue JSON::ParserError
       body = resp.body.to_s
@@ -174,21 +174,15 @@ class RallyTools
     }
   end
 
-  def self.parse_presets_response(response)
-    parsed_presets = {}
-    response['data'].each do |preset|
-      name = preset['attributes']['name']
-      parsed_presets[name] = {
-          id: preset['id'],
-          code: RallyTools.get_preset_code(preset['id'])
-        }
-        puts "Reading from Rally #{@env_name}: \t #{preset['attributes']['name']}"
-    end
-    return parsed_presets
+  def self.parse_preset_response(preset)
+      return {
+        data: preset,
+        code: RallyTools.get_preset_code(preset['id'])
+      }
   end
 
   def self.get_preset_code(preset_id)
-    resp = RallyTools.make_api_request("/presets/#{preset_id}/providerData", suppress: true)
+    resp = RallyTools.make_api_request("/presets/#{preset_id}/providerData", suppress: true, never_json: true)
   end
 
   def self.get_next_page(response)
@@ -197,15 +191,32 @@ class RallyTools
     end
   end
 
-  def self.download_all_presets(suppress: false)
-    presets = {}
-    presets_path = '/presets'
-    resp = RallyTools.make_api_request(presets_path, suppress: suppress)
-    while RallyTools.get_next_page(resp) do
-      presets.merge!(RallyTools.parse_presets_response(resp))
-      resp = RallyTools.make_api_request(nil, path_override: RallyTools.get_next_page(resp), one_line: true, suppress: suppress)
+  def self.download_all(resource, suppress: false)
+    data = []
+    resp = RallyTools.make_api_request(resource, suppress: suppress)
+    resp["data"].each do |x|
+      data << yield(x)
     end
-    return presets
+    while RallyTools.get_next_page(resp) do
+      #break
+      resp = RallyTools.make_api_request(nil, path_override: RallyTools.get_next_page(resp), suppress: suppress)
+      resp["data"].each do |x|
+        data << yield(x)
+      end
+    end
+    return data
+  end
+
+  def self.download_all_presets(suppress: false)
+      data = RallyTools.download_all("/presets?page=1p50", suppress: suppress) do |x|
+        RallyTools.parse_preset_response(x)
+      end
+      return data
+  end
+
+  def self.download_all_rules(suppress: false)
+      data = RallyTools.download_all("/workflowRules?page=1p50", suppress: suppress) {|x| x}
+      return data
   end
 
   def self.parse_preset_from_file(file_path)

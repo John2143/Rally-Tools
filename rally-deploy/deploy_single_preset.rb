@@ -12,7 +12,7 @@ OptionParser.new do |parser|
   end
 end.parse!
 
-preset = Preset.new(options[:file])
+preset = Preset.new(:local, options[:file])
 deployment = Deployment.new([preset])
 deployment.deploy()
 p deployment.get_results()

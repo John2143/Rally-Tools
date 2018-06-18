@@ -1,0 +1,2658 @@
+[
+  {
+    "attributes": {
+      "createdAt": 1520521984496,
+      "description": null,
+      "name": "OR221 Frame Convert to 1080i 59_94 in DnX HD MXF",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1520540019724
+    },
+    "id": 341,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/341"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "342",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/342"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "435",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/435"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "28",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/28"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1520539918766,
+      "description": null,
+      "name": "OR221J Post Standards Conversion Join",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1520541868794
+    },
+    "id": 342,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/342"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "570",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/570"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1521813184603,
+      "description": null,
+      "name": "OR222 Send Standards Conversion to Mediaflex",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1521820740994
+    },
+    "id": 344,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/344"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "199",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/199"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "572",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/572"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1523636325406,
+      "description": "Launcher for transcode to DnX HD MXF to DCTC for XDCAM files",
+      "name": "MAINT: Dynamic XDCAM Transcode Launcher",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1523636325406
+    },
+    "id": 352,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/352"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "598",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/598"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1523379936769,
+      "description": null,
+      "name": "OR17DAB MXF Transcode to Dynamic Location-AME",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1528835612325
+    },
+    "id": 350,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/350"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "215",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/215"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "592",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/592"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "34",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/34"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1522760609184,
+      "description": "Copy the Proxy file to Google Cloud Archive",
+      "name": "maint: Copy Proxy File to GCP Archive",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1522971410592
+    },
+    "id": 346,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/346"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "347",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/347"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "574",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/574"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "24",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/24"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1522971299724,
+      "description": "Set Google Cloud Archived Metadata value to True",
+      "name": "maint: Set Google Cloud Archived Metadata",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1522971431561
+    },
+    "id": 347,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/347"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "581",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/581"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1523231728274,
+      "description": null,
+      "name": "AS200B Recontribution Task Hanlder",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1523231728274
+    },
+    "id": 348,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/348"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "500",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/500"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1523379251013,
+      "description": null,
+      "name": "OR17DA Dynamic AME Transcode",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1523379763422
+    },
+    "id": 349,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/349"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "596",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/596"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1523636178792,
+      "description": "Transcode to Dnx HD MXF, only works in 1080i59.94 and 1080i50 and with 4 or 8 channel audio",
+      "name": "MAINT: AME Transcode to DnX HD MXF",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1523636178792
+    },
+    "id": 351,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/351"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "592",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/592"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "34",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/34"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524018109710,
+      "description": "Dynamic launcher for Recontribution QC Proxy",
+      "name": "AS222 Recontribution QC Proxy Launcher",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524018170836
+    },
+    "id": 355,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/355"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "603",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/603"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524018743876,
+      "description": "Vidchecker dynamic launcher for Recontribution",
+      "name": "AS221V Recontribution Vidchecker QC Launcher",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524018743876
+    },
+    "id": 357,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/357"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "604",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/604"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524019970773,
+      "description": "Success state for Basic Recontribution",
+      "name": "AS292 Recontribution Basic Complete",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524019970773
+    },
+    "id": 359,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/359"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "41",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/41"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524020111167,
+      "description": "Failure output for Recontribution",
+      "name": "AS299 Recontribution File Failure",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524020111167
+    },
+    "id": 360,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/360"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "42",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/42"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524020189486,
+      "description": "Main join for basic recontribution",
+      "name": "AS261 Recontribution Basic Join",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524020189486
+    },
+    "id": 361,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/361"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "607",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/607"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524019783867,
+      "description": "Basic Split for Recontribution, QC Proxy and Vidcheck only",
+      "name": "AS201V Recontribution Basic Video Split",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524020218596
+    },
+    "id": 358,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/358"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "606",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/606"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1522440936637,
+      "description": null,
+      "name": "AS200B Recontribution Metadata Parser",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527195538238
+    },
+    "id": 345,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/345"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "358",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/358"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "578",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/578"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524017984179,
+      "description": "Progressive QC Proxy for Recontribution",
+      "name": "AS211P QC Proxy Progressive",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524590051399
+    },
+    "id": 354,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/354"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "361",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/361"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "601",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/601"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "20",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/20"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524017936723,
+      "description": "QC Proxy launcher for MediaFlex Recontribution",
+      "name": "AS211 QC Proxy",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524590067528
+    },
+    "id": 353,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/353"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "361",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/361"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "602",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/602"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "20",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/20"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524671413854,
+      "description": null,
+      "name": "AS260 Recontribution Post QC Evaluate",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524671479597
+    },
+    "id": 365,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/365"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "361",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/361"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "605",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/605"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524608272270,
+      "description": "Proxy launcher for SDVI view proxy for recontribution",
+      "name": "AS223 Recontribution Dynamic SDVI Proxy Launcher",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524608272270
+    },
+    "id": 362,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/362"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "618",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/618"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1520006722942,
+      "description": "AL R311 - QC ProRes HQ Movie",
+      "name": "AL R311 - QC for ProRes HQ Movie",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524663900110
+    },
+    "id": 337,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/337"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "334",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/334"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "566",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/566"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "26",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/26"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1524608393954,
+      "description": "Create view proxy for recontribution workflow",
+      "name": "AS210 Recontribution SDVI View Proxy",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524684845745
+    },
+    "id": 363,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/363"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "361",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/361"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "621",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/621"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "20",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/20"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1518705065464,
+      "description": "Rule 3 - DLTO Manufacture Delivery workflow Dev - Create ProRes HQ Movie File",
+      "name": "AL R301 - Manufacture ProRes HQ Movie",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1524748628232
+    },
+    "id": 329,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/329"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "364",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/364"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "551",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/551"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "20",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/20"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1525271032097,
+      "description": null,
+      "name": "TEST AS123",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1525285277086
+    },
+    "id": 371,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/371"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": {
+          "id": "373",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/373"
+        }
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "372",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/372"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "509",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/509"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526320332083,
+      "description": null,
+      "name": "OR77N DKNOX Notify",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1526320495500
+    },
+    "id": 379,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/379"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "59",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/59"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "97",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/97"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526323479147,
+      "description": null,
+      "name": "OR40 Pre‐QC Standards Conversion Launcher",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1526323479147
+    },
+    "id": 381,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/381"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "637",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/637"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526484518770,
+      "description": null,
+      "name": "OR41 Frame Convert to 1080i 50 in DnX HD MXF",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1526484636792
+    },
+    "id": 383,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/383"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "384",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/384"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "436",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/436"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "28",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/28"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526484690779,
+      "description": null,
+      "name": "OR41 Frame Convert to 1080i 59_94 in DnX HD MXF",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1526484690779
+    },
+    "id": 385,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/385"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "384",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/384"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "435",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/435"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "28",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/28"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526324147091,
+      "description": null,
+      "name": "OR42 Post Pre‐QC Standards Conversion Evaluate",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1526493304581
+    },
+    "id": 382,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/382"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "165",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/165"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "309",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/309"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526484601408,
+      "description": null,
+      "name": "OR41J Post Standards Conversion Join",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1526494580843
+    },
+    "id": 384,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/384"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "646",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/646"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526566430970,
+      "description": null,
+      "name": "OR54A AWS Machine Learning Join",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1526575011292
+    },
+    "id": 392,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/392"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "656",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/656"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526498165046,
+      "description": null,
+      "name": "OR51G Copy Proxy File to GCP Archive",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527709447715
+    },
+    "id": 386,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/386"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "399",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/399"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "574",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/574"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "24",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/24"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526502169584,
+      "description": null,
+      "name": "OR53AS Amazon Speech",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1528207655076
+    },
+    "id": 391,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/391"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": {
+          "id": "392",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/392"
+        }
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "392",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/392"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "655",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/655"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "47",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/47"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526566604280,
+      "description": null,
+      "name": "OR55 Machine Learning Join",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1528987936551
+    },
+    "id": 393,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/393"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "657",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/657"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526320554957,
+      "description": null,
+      "name": "OR77T Copy Supplied to DKNOX",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1529015261668
+    },
+    "id": 380,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/380"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "440",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/440"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "634",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/634"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "24",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/24"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526320229786,
+      "description": null,
+      "name": "OR77 Copy to DKNOX",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1529015281865
+    },
+    "id": 378,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/378"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "440",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/440"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "742",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/742"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "59",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/59"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1526501753456,
+      "description": null,
+      "name": "OR50 Machine Learning Dynamic Launcher",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1526501753456
+    },
+    "id": 388,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/388"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "650",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/650"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1528384177801,
+      "description": null,
+      "name": "ORF60 Post Aurora QC",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1528384177801
+    },
+    "id": 421,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/421"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "165",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/165"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "702",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/702"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": null,
+      "description": "Runs Aurora QC and generates QC metadata and QC report after Pickup Aurora Launcher",
+      "name": "ORF31 Pickup Aurora QC",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1528384245947
+    },
+    "id": 196,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/196"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "421",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/421"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "9",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/9"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "4",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/4"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1527785198836,
+      "description": "Publish EST Articrafts to Partners",
+      "name": "NL R9012 - MD - Publish EST Articrafts to Partner",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527785198836
+    },
+    "id": 416,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/416"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "689",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/689"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "1",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/1"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1521136726024,
+      "description": "Task Handler for MediaFlex file recontribution",
+      "name": "AS200 Recontribution Task Handler",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527191960078
+    },
+    "id": 343,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/343"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "345",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/345"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "573",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/573"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1527781667464,
+      "description": "Workflow to trigger a Media Delivery supply chain for Non-Linear services based on the payload information.",
+      "name": "NL R6000 - MD - Non Linear Media Delivery Workflow",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527788607981
+    },
+    "id": 411,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/411"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": {
+          "id": "412",
+          "type": "workflowRules"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/412"
+        }
+      },
+      "preset": {
+        "data": {
+          "id": "682",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/682"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1527192606477,
+      "description": null,
+      "name": "OR54G Google Machine Learning Join",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527192606477
+    },
+    "id": 396,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/396"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "663",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/663"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1527256408498,
+      "description": null,
+      "name": "OR52G Dynamic Google Machine Learning Launcher",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527256408498
+    },
+    "id": 399,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/399"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "652",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/652"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1527277790673,
+      "description": "Joins the Specialty Proxy split workflow (DNAP Language, DKNOX Segmented, Caption)",
+      "name": "OR60S Specialty Proxy Join",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527277790673
+    },
+    "id": 401,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/401"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "671",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/671"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1527278035076,
+      "description": "Launcher for Caption, Segmented, and Language Customization proxies",
+      "name": "OR25 Dynamic Specialty Proxy Launcher",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527278078341
+    },
+    "id": 402,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/402"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "672",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/672"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1527297657698,
+      "description": "Print Dynamic preset data for debug",
+      "name": "KS R100 - Print Dynamic preset data",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527297657698
+    },
+    "id": 403,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/403"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "673",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/673"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1527599747516,
+      "description": "Workflow to trigger a Media Preparation supply chain for Non-Linear services based on the payload information.",
+      "name": "NL R1000 - MP - Non Linear Media Preparation Workflow",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1527599747516
+    },
+    "id": 404,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/404"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "675",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/675"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  },
+  {
+    "attributes": {
+      "createdAt": 1528458019628,
+      "description": "Metadata parsing for simple recontribution",
+      "name": "AS202B Simple Recontribution Metadata Parser",
+      "priority": "PriorityNorm",
+      "starred": false,
+      "updatedAt": 1528458019628
+    },
+    "id": 423,
+    "links": {
+      "self": "https://discovery-uat.sdvi.com/api/v2/workflowRules/423"
+    },
+    "relationships": {
+      "errorNext": {
+        "data": null
+      },
+      "organization": {
+        "data": {
+          "id": "1",
+          "type": "organizations"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/organizations/1"
+        }
+      },
+      "passNext": {
+        "data": null
+      },
+      "preset": {
+        "data": {
+          "id": "578",
+          "type": "presets"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/presets/578"
+        }
+      },
+      "providerType": {
+        "data": {
+          "id": "13",
+          "type": "providerTypes"
+        },
+        "links": {
+          "self": "https://discovery-uat.sdvi.com/api/v2/providerTypes/13"
+        }
+      }
+    },
+    "type": "workflowRules"
+  }
+]
