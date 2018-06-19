@@ -21,7 +21,7 @@ if body['data'].empty?
   exit
 end
 
-body = RallyTools.make_api_request(nil, path_override: body['data'][0]['links']['providerData'])
+body = RallyTools.make_api_request(nil, path_override: body['data'][0]['links']['providerData'], never_json: true)
 
 file = Tempfile.new(["rallydiff", ".py"])
 file.write(body)

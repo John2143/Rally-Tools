@@ -25,10 +25,14 @@ class Serializable
 end
 
 module DownloadableCache
+  class << self
+    attr_accessor :dirname
+    DownloadableCache.dirname = File.dirname __FILE__
+  end
+
   def serialized_download type
     data = nil
-    @dirname = File.dirname __FILE__
-    file = File.join @dirname, "all_#{type}s.json"
+    file = File.join DownloadableCache.dirname, "all_#{type}s.json"
     begin
       f = File.read(file)
       data = JSON.parse(f)
@@ -44,6 +48,6 @@ module DownloadableCache
     data
   end
   def serialized_save type, data
-    File.open(File.join(@dirname, "all_#{type}s2.json"), "w") {|f| f.write JSON.pretty_generate(data)}
+    File.open(File.join(DownloadableCache.dirname, "all_#{type}s2.json"), "w") {|f| f.write JSON.pretty_generate(data)}
   end
 end

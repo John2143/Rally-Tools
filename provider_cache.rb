@@ -1,10 +1,12 @@
 require_relative "./rally-tools.rb"
+require_relative "./serializable.rb"
 require "json"
 
 class ProviderCache
 
+  @@file = File.join DownloadableCache.dirname, "providers_cache.json"
   begin
-    @@providers = JSON.parse IO.read("providers_cache.json")
+    @@providers = JSON.parse IO.read(@@file)
     p "providers from file", @@providers
   rescue SystemCallError
     map = {}
@@ -15,7 +17,7 @@ class ProviderCache
       map[x["id"]] = lang
     end
 
-    File.open("providers_cache.json", "w") {|f| f.write(map.to_json)}
+    File.open(@@file, "w") {|f| f.write(map.to_json)}
 
     @@providers = map
   end

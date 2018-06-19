@@ -80,7 +80,7 @@ class Preset < Serializable
     name
   end
   def find_name_in_preset
-    name_matches = /name:\s([\w\d. ]+)[\r\s]?$/.match(@code)
+    name_matches = /name:\s([\w\d. \/]+)[\r\s]?$/.match(@code)
     begin
       name = name_matches[1]
       return name
