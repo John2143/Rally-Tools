@@ -11,6 +11,9 @@ class HTTPRequestError < StandardError
   def initialize(resp)
     @msg = "Bad response from HTTP Request, status code #{resp.code}, body: #{resp.body}"
   end
+  def to_str
+    @msg
+  end
 end
 
 class InvalidPresetException < StandardError
@@ -24,28 +27,33 @@ end
 class RallyMatchNotFoundError < StandardError
 end
 
+class RallyPRODModifyError < StandardError
+end
 
 class RallyTools
-  @env_name = "UAT"
-  @rally_api_key = ENV["rally_api_key_#{@env_name}"]
-  @rally_api = ENV["rally_api_url_#{@env_name}"]
+  def self.make_api_request(path, env_name, path_override: nil, payload: nil, one_line: false, suppress: false, patch: false, put: false, never_json: false)
+    puts "Possibly unsuppored env #{env_name}" if not [:DEV, :UAT, :PROD].include? env_name
+    rally_api_key = ENV["rally_api_key_#{env_name}"]
+    rally_api = ENV["rally_api_url_#{env_name}"]
+    return puts "Unsupported env #{env_name}" if not rally_api
 
-  def self.make_api_request(path, path_override: nil, payload: nil, one_line: false, suppress: false, patch: false, put: false, never_json: false)
-    path = path_override || @rally_api + path
+    path = path_override || rally_api + path
     endchar = one_line ? "\t" : "\n"
 
     # make the request
     print "Making request for path: #{path} #{endchar}" if !suppress
-    if payload && @env_name != "PROD" # saftey -- don't modify Production
+    if payload
+      raise RallyPRODModifyError if env_name == "PROD" and ENV["rally_allow_modify_PROD"] != "allowed"
+
       if patch
-        resp = HTTP.accept(:json).auth("Bearer " + @rally_api_key).patch(path, json: payload)
+        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).patch(path, json: payload)
       elsif put
-        resp = HTTP.accept(:json).auth("Bearer " + @rally_api_key).put(path, body: payload)
+        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).put(path, json: payload)
       else
-        resp = HTTP.accept(:json).auth("Bearer " + @rally_api_key).post(path, json: payload)
+        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).post(path, json: payload)
       end
     else
-      resp = HTTP.accept(:json).auth("Bearer " + @rally_api_key).get(path)
+      resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).get(path)
     end
 
     # check for a successful response
@@ -65,44 +73,49 @@ class RallyTools
     return body
   end
 
-  def self.get_rally_id_for_movie_name(movie_name)
+  def self.get_rally_id_for_movie_name(movie_name, env)
     movie_search_path = "/movies?filter=nameContains=#{movie_name}"
-    body = self.make_api_request(movie_search_path)
+    body = self.make_api_request(movie_search_path, env)
     id = nil
     begin
       id = body['data'][0]['id']
     rescue NoMethodError
-       raise RallyMatchNotFoundError.new
+      raise RallyMatchNotFoundError.new
     end
     return id
   end
 
-  def self.get_rally_id_for_preset_name(preset_name)
-    preset_search_path = "/presets?filter=name=#{URI::escape(preset_name)}"
+  def self.get_rally_id(path, env)
     begin
-      body = self.make_api_request(preset_search_path)
+      body = self.make_api_request(path, env)
     rescue HTTPRequestError => e
-        p e.msg
+      p e.msg
     end
     id = nil
     begin
       id = body['data'][0]['id']
     rescue NoMethodError
-       raise RallyMatchNotFoundError.new
-     end
+      raise RallyMatchNotFoundError.new
+    end
     return id
   end
+  def self.get_rally_id_for_rule_name(rule_name, env)
+    self.get_rally_id"/workflowRules?filter=name=#{URI::escape(rule_name)}", env
+  end
+  def self.get_rally_id_for_preset_name(preset_name, env)
+    self.get_rally_id "/presets?filter=name=#{URI::escape(preset_name)}", env
+  end
 
-  def self.get_metadata_for_movie_id(movie_id, suppress: false)
+  def self.get_metadata_for_movie_id(movie_id, env, suppress: false)
     metadata_path = "/movies/#{movie_id}/metadata/Metadata"
-    response = self.make_api_request(metadata_path, suppress: suppress)
+    response = self.make_api_request(metadata_path, env, suppress: suppress)
     begin metadata = response['data']['attributes']['metadata'] rescue NoMethodError end
     return metadata
   end
 
-  def self.patch_metadata_for_movie_id(movie_id, metadata_obj)
+  def self.patch_metadata_for_movie_id(movie_id, metadata_obj, env)
     metadata_path = "/movies/#{movie_id}/metadata/Metadata"
-    response = self.make_api_request(metadata_path, payload: metadata_obj, patch: true)
+    response = self.make_api_request(metadata_path, env, payload: metadata_obj, patch: true)
   end
 
   def self.set_recontribution_status_metadata(movie_id, status)
@@ -147,42 +160,35 @@ class RallyTools
 
   def self.new_jobs_payload(init_data, filename, rule)
     return {
-        "data" =>  {
-            "type" => "workflows",
-            "attributes" =>  {
-                "initData" => init_data.to_json
-            },
-            "relationships" => {
-                "movie" => {
-                    "data" => {
-                        "type" => "movies",
-                        "attributes" => {
-                            "name" => filename
-                        }
-                    }
-                },
-                "rule" => {
-                   "data" => {
-                       "type" => "rules",
-                       "attributes" => {
-                            "name" => rule
-                        }
-                    }
-                }
+      "data" =>  {
+        "type" => "workflows",
+        "attributes" =>  {
+          "initData" => init_data.to_json
+        },
+        "relationships" => {
+          "movie" => {
+            "data" => {
+              "type" => "movies",
+              "attributes" => {
+                "name" => filename
+              }
             }
+          },
+          "rule" => {
+            "data" => {
+              "type" => "rules",
+              "attributes" => {
+                "name" => rule
+              }
+            }
+          }
         }
+      }
     }
   end
 
-  def self.parse_preset_response(preset)
-      return {
-        data: preset,
-        code: RallyTools.get_preset_code(preset['id'])
-      }
-  end
-
-  def self.get_preset_code(preset_id)
-    resp = RallyTools.make_api_request("/presets/#{preset_id}/providerData", suppress: true, never_json: true)
+  def self.get_preset_code(preset_id, env)
+    resp = RallyTools.make_api_request("/presets/#{preset_id}/providerData", env, never_json: true)
   end
 
   def self.get_next_page(response)
@@ -191,32 +197,20 @@ class RallyTools
     end
   end
 
-  def self.download_all(resource, suppress: false)
+  def self.download_all(resource, env, suppress: false)
     data = []
-    resp = RallyTools.make_api_request(resource, suppress: suppress)
+    resp = RallyTools.make_api_request(resource, env, suppress: suppress)
     resp["data"].each do |x|
       data << yield(x)
     end
     while RallyTools.get_next_page(resp) do
       #break
-      resp = RallyTools.make_api_request(nil, path_override: RallyTools.get_next_page(resp), suppress: suppress)
+      resp = RallyTools.make_api_request(nil, env, path_override: RallyTools.get_next_page(resp), suppress: suppress)
       resp["data"].each do |x|
         data << yield(x)
       end
     end
     return data
-  end
-
-  def self.download_all_presets(suppress: false)
-      data = RallyTools.download_all("/presets?page=1p50", suppress: suppress) do |x|
-        RallyTools.parse_preset_response(x)
-      end
-      return data
-  end
-
-  def self.download_all_rules(suppress: false)
-      data = RallyTools.download_all("/workflowRules?page=1p50", suppress: suppress) {|x| x}
-      return data
   end
 
   def self.parse_preset_from_file(file_path)
@@ -276,57 +270,6 @@ class RallyTools
   def self.open_file(file_path)
     raise Errors::FileNotFoundException.new("File not Found") if !File.exist?(file_path)
     file_contents = File.open(file_path, 'rb') { |f| f.read }
-  end
-
-  def self.update_preset_in_rally(id, preset)
-    patch_update_path = "/presets/#{id}/providerData"
-    begin
-      response = self.make_api_request(patch_update_path, payload: preset.code , put: true)
-    rescue HTTPRequestError => e
-      p e.msg
-    end
-  end
-
-  def self.create_preset_in_rally(preset)
-    payload = {
-      data: {
-        type: 'presets',
-        attributes: {
-          name: preset.name
-        },
-        relationships: {
-          providerType: {
-            data: {
-              id: RallyTools.find_evaluate_provider_type(),
-              type: "providerTypes"
-            },
-          }
-        }
-      }
-    }
-    path = '/presets'
-    begin
-      response = self.make_api_request(path, payload: payload)
-      return response
-    rescue HTTPRequestError => e
-      p e.msg
-    end
-  end
-
-  def self.find_evaluate_provider_type()
-    path = "/providerTypes"
-    response = self.make_api_request(path)
-    id = nil
-    response["data"].each do |providerType|
-      if providerType["attributes"]["name"] == "SdviEvaluate"
-        id = providerType["id"]
-      end
-    end
-    if id.nil?
-      raise RallyMatchNotFoundError.new
-    else
-      return id
-    end
   end
 
   def self.rapid_preset_dev(preset_path)

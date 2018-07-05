@@ -11,7 +11,9 @@ class Serializable
     hash = {}
     self.instance_variables.each do |var|
       #remove starting @
-      hash[var[1..-1]] = self.instance_variable_get var
+      strvar = var[1..-1]
+      next if strvar.start_with? "_"
+      hash[strvar] = self.instance_variable_get var
     end
     hash.to_json opts
   end
@@ -30,24 +32,26 @@ module DownloadableCache
     DownloadableCache.dirname = File.dirname __FILE__
   end
 
-  def serialized_download type
+  def serialized_download type, env
     data = nil
-    file = File.join DownloadableCache.dirname, "all_#{type}s.json"
+    @ident = "#{type}s_#{env}"
+    file = File.join DownloadableCache.dirname, "all_#{@ident}s_.json"
     begin
       f = File.read(file)
       data = JSON.parse(f)
-      puts "Got #{type}s from file"
+      puts "Got #{@ident} from file"
     rescue
-      puts "Building #{type} cache..."
-      methodname = "download_all_#{type}s"
-      data = RallyTools.public_send(methodname)
+      puts "Building #{@ident} cache..."
+      classname = type.capitalize
+      c = Object.const_get(classname)
+      data = c.download_all env
       puts "Downloaded"
       File.open(file, "w"){|f| f.write JSON.pretty_generate(data)}
     end
 
     data
   end
-  def serialized_save type, data
-    File.open(File.join(DownloadableCache.dirname, "all_#{type}s2.json"), "w") {|f| f.write JSON.pretty_generate(data)}
+  def serialized_save data
+    File.open(File.join(DownloadableCache.dirname, "all_#{@ident}2.json"), "w") {|f| f.write JSON.pretty_generate(data)}
   end
 end

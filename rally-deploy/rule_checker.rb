@@ -11,25 +11,35 @@ def calculate_supply_chain start
   rule_queue = [Rule.find_by_name(start)]
   preset_name_queue = []
 
+  return nil, nil if not rule_queue.first
+
   rules_processed = []
   rule_names   =   Rule.all_rules  .map {|x| x.name}
   preset_names = Preset.all_presets.map {|x| x.name}
+
   rule_queue.each do |rule|
+    rulename = nil
     if rule.is_a? String
-      rule = Rule.find_by_name rule
+      rulename = rule
+      rule = Rule.find_by_name rulename
+    else
+      rulename = rule.name
     end
 
-    throw if not rule
+    if not rule
+      print "unsupported rule #{rulename}"
+      next
+    end
 
     next if rules_processed.include? rule
     rules_processed << rule
 
-    rule_queue << rule.cpassNext  if rule.cpassNext
-    rule_queue << rule.cerrorNext if rule.cerrorNext
-    preset_name_queue << rule.cpreset.name
+    rule_queue << rule._cpassNext  if rule._cpassNext
+    rule_queue << rule._cerrorNext if rule._cerrorNext
+    preset_name_queue << rule._cpreset.name
 
     rule.next_rules = []
-    rule.cpreset.parse_code_for_strings(rule_names).each do |x|
+    rule._cpreset.parse_code_for_strings(rule_names).each do |x|
       next_rule = Rule.find_by_name x
       return puts "Fatal error: Rule not found #{x}" if not next_rule
       rule_queue << next_rule
@@ -37,7 +47,7 @@ def calculate_supply_chain start
     end
 
     rule.next_presets = []
-    rule.cpreset.parse_code_for_strings(preset_names).each do |x|
+    rule._cpreset.parse_code_for_strings(preset_names).each do |x|
       preset_name_queue << x
       rule.next_presets << x
     end
@@ -52,7 +62,7 @@ def calculate_supply_chain start
 end
 
 files = [
-  "OR00 File Type Determiner",
+  "ORHIVE Get HIVE API Data",
   "AS100 QC Task Handler",
   "AS200 Recontribution Task Handler",
   "PLV - On Metadata Change",
@@ -61,9 +71,16 @@ files = [
 
 files.each do |name|
   rules, presets = calculate_supply_chain name
-  puts "#{rules.count} rules (#{presets.count} presets) in supply chain from #{rules.first.name}"
-  presets.each do |x|
-    x.save_code
+  if not rules
+    puts "Supply chain not available: #{name}"
+  else
+    puts "#{rules.count} rules (#{presets.count} presets) in supply chain from #{rules.first.name}"
+    presets.each do |x|
+      x.save
+    end
+    rules.each do |x|
+      x.save
+    end
   end
 end
 

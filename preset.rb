@@ -7,11 +7,9 @@ require "json"
 
 class Preset < Serializable
   extend DownloadableCache
-  EvaluateProvider = 13
 
   attr_accessor :name, :code
-  attr_reader :type, :id, :rule_matches
-  @path
+  attr_reader :type, :id, :rule_matches, :metadata
   @@has_attribs = false
 
   class << self
@@ -24,7 +22,8 @@ class Preset < Serializable
   #  :local, <path>
   #  :silo, <attributes>, <code>
   #  :
-  def initialize type, data, code= ''
+  def initialize type, data, code='', remote: :UAT
+    @remote = remote
     @type = type
     if @type == :local
       @path = data
@@ -44,20 +43,134 @@ class Preset < Serializable
         next if @@has_attribs
         Preset.class_eval{attr_reader k.intern}
       end
+
       @@has_attribs = true
 
       @provider_type = safe_id data["relationships"]["providerType"]
-      @file_suffix = ProviderCache.to_file_ext @provider_type
+      provider = ProviderCache.envs[@remote].find_by_id @provider_type
 
+      @file_suffix = ProviderCache.to_file_ext provider
       @path = @name + "." + @file_suffix
+
+      @metadata = {
+        "providerName" => provider["name"],
+        "providerSettings" => @providerSettings,
+      }
+
+      remove_instance_variable(:@providerSettings)
+    end
+
+    if @type == :local
+      begin
+        @metadata = JSON.parse IO.read get_metadata_path
+      rescue Errno::ENOENT
+        @metadata = {}
+        puts "Metadata file not found. No action"
+      end
+    end
+
+    if @providerDataFilename and @providerDataFilename.end_with? ".zip"
+      @path = @path + ".zip"
+    end
+
+  end
+  def get_id_on_env env=@remote
+    return @id if env == @remote
+    remote_id ||= {}
+    return remote_id[env] if remote_id[env]
+    remote_id[env] = RallyTools.get_rally_id_for_preset_name(@name, env)
+  end
+  def put_code_on_env env=@remote
+    id = get_id_on_env env
+
+    update_path = "/presets/#{id}/providerData"
+    begin
+      response = RallyTools.make_api_request(update_path, env, payload: code_binary, put: true)
+    rescue HTTPRequestError => e
+      p e.msg
     end
   end
 
-  def save_code
-    file = ENV["rally_repo_path"] + "/silo-presets/" + @path
-    #p file
-    File.open(file, "w") do |f|
-      f.write(@code)
+  def provider_name; @metadata["providerName"]; end
+  def provider_settings; @metadata["providerSettings"]; end
+
+  def create_payload env
+    provider_id = ProviderCache.envs[env].find_id_by_name provider_name
+    {
+      data: {
+        type: "presets",
+        attributes: {
+          name: @name,
+          providerSettings: provider_settings,
+        },
+        relationships: {
+          providerType: {
+            data: {
+              id: provider_id,
+              type: "providerTypes",
+            },
+          }
+        }
+      }
+    }
+  end
+
+  def patch_on_env env
+    payload = create_payload env
+    id = get_id_on_env env
+    update_path = "/presets/#{id}"
+    begin
+      response = RallyTools.make_api_request(update_path, env, payload: payload, patch: true)
+    rescue HTTPRequestError => e
+      p e.msg
+    end
+  end
+
+  def create_on_env env=@remote
+    payload = create_payload env
+    p payload
+    path = "/presets"
+    begin
+      response = RallyTools.make_api_request(path, env, payload: payload)
+      return response
+    rescue HTTPRequestError => e
+      p e.msg
+    end
+  end
+
+  def get_path
+    ENV["rally_repo_path"] + "/silo-presets/" + @path
+  end
+  def get_metadata_path
+    ENV["rally_repo_path"] + "/silo-metadata/" + @path + "_md.json"
+  end
+
+  def code_binary
+    return code_zip if code_is_zip?
+    @code
+  end
+  def code_is_zip?
+    @code.start_with?("b") &&
+    @code[1] == "'" &&
+    @code[-1] == "'"
+  end
+  def code_zip
+    #special handling for zip files
+    code = @code[1..-1]
+    code.gsub!('"', '\"')
+    code.gsub!('\\\'', '\'')
+    code[0] = '"'
+    code[-1] = '"'
+
+    eval(code)
+  end
+
+  def save
+    File.open(get_metadata_path, "w") do |f|
+      f.write(JSON.pretty_generate @metadata)
+    end
+    File.open(get_path, "w") do |f|
+      f.write(code_binary) if @code
     end
   end
 
@@ -111,10 +224,10 @@ class Preset < Serializable
   end
   def prepend_preset_name_to_code
     return if not @code
-    return if @provider_type != EvaluateProvider
+    return if provider_name != "SdviEvaluate"
     throw if not @name
     return if find_name_in_preset
-    name_search = Regexp.new @name
+    name_search = Regexp.new "^#{@name}$"
     if name_search =~ @code
       @code.sub! @name, "name: #{@name}"
     elsif @code.start_with? "'''"
@@ -123,9 +236,23 @@ class Preset < Serializable
       @code.prepend "'''\nname: #{name}\n'''\n"
     end
   end
+
+  def self.download_all env, suppress: false
+      data = RallyTools.download_all("/presets?page=1p50", env, suppress: suppress) do |x|
+        {
+          data: x,
+          code: RallyTools.get_preset_code(x['id'], env)
+        }
+      end
+      return data
+  end
+
+  def map_ids_to_names
+  end
 end
 
-data = Preset.serialized_download "preset"
+data = Preset.serialized_download "preset", :UAT
 data.map! {|x| Preset.new :silo, x["data"], x["code"]}
 Preset.all_presets = data
-Preset.serialized_save "preset", data
+data.each {|x| x.map_ids_to_names}
+Preset.serialized_save data

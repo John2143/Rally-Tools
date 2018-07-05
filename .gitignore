@@ -2,4 +2,4 @@
 Gemfile.lock
 all_presets*
 all_rules*
-providers_cache.json
+providers_cache*
