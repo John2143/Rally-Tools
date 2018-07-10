@@ -104,6 +104,7 @@ class Rule < Serializable
   def get_path
     ENV["rally_repo_path"] + "/silo-rules/" + @name + ".json"
   end
+  def to_s; @name; end
   def save
     File.open(get_path, "w") do |f|
       f.write(JSON.pretty_generate({

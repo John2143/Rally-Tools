@@ -204,11 +204,11 @@ class RallyTools
       data << yield(x)
     end
     while RallyTools.get_next_page(resp) do
-      #break
       resp = RallyTools.make_api_request(nil, env, path_override: RallyTools.get_next_page(resp), suppress: suppress)
       resp["data"].each do |x|
         data << yield(x)
       end
+      break
     end
     return data
   end

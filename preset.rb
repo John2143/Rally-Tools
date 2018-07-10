@@ -14,14 +14,16 @@ class Preset < Serializable
 
   class << self
     attr_accessor :all_presets, :code_match
-    # this matches rules like "OR132 Blah blah"
+
+    # this matches rules like "OR132 Blah blah", but is not reliable enough to
+    # use. Instead, try using `parse_code_for_strings` and passing all known
+    # presets that exist
     #Preset.code_match = /(([A-Z]+ )?[A-Z]{1,3}\d{2,5}\w{0,3}?\s(\- )?[\w .\d-]+)/
   end
 
-  #args:
+  #This creates a preset class and does some initialization
   #  :local, <path>
-  #  :silo, <attributes>, <code>
-  #  :
+  #  :silo, <attributes>, <code>, remote: remoteSilo
   def initialize type, data, code='', remote: :UAT
     @remote = remote
     @type = type
@@ -29,13 +31,18 @@ class Preset < Serializable
       @path = data
       @code = RallyTools::open_file(@path)
       @name = parse_preset_for_name
+      begin
+        @metadata = JSON.parse IO.read get_metadata_path
+      rescue Errno::ENOENT
+        @metadata = {}
+        puts "Metadata file not found. No action"
+      end
     elsif @type == :silo
       @path = nil
       @id = data["id"]
       code = nil if code == "None"
       @code = code
 
-      # @name = <<set inside this loop>>
       # promote fields to instance variables with metaprogramming
       data["attributes"].each do |k, v|
         sym = ("@" + k).intern
@@ -60,25 +67,17 @@ class Preset < Serializable
       remove_instance_variable(:@providerSettings)
     end
 
-    if @type == :local
-      begin
-        @metadata = JSON.parse IO.read get_metadata_path
-      rescue Errno::ENOENT
-        @metadata = {}
-        puts "Metadata file not found. No action"
-      end
-    end
-
+    #special zip handling for usability
     if @providerDataFilename and @providerDataFilename.end_with? ".zip"
       @path = @path + ".zip"
     end
-
   end
+
+  # Get id based on name
   def get_id_on_env env=@remote
-    return @id if env == @remote
-    remote_id ||= {}
-    return remote_id[env] if remote_id[env]
-    remote_id[env] = RallyTools.get_rally_id_for_preset_name(@name, env)
+    @remote_id ||= {env => @id}
+    return @remote_id[env] if @remote_id[env]
+    @remote_id[env] = RallyTools.get_rally_id_for_preset_name(@name, env)
   end
   def put_code_on_env env=@remote
     id = get_id_on_env env
@@ -96,6 +95,7 @@ class Preset < Serializable
 
   def create_payload env
     provider_id = ProviderCache.envs[env].find_id_by_name provider_name
+
     {
       data: {
         type: "presets",
@@ -115,29 +115,23 @@ class Preset < Serializable
     }
   end
 
-  def patch_on_env env
+  # Use this function to create or update a preset on a remote respoistory
+  def patch_on_env env=@remote
     payload = create_payload env
     id = get_id_on_env env
+    return create_on_env env if not id
+
     update_path = "/presets/#{id}"
-    begin
-      response = RallyTools.make_api_request(update_path, env, payload: payload, patch: true)
-    rescue HTTPRequestError => e
-      p e.msg
-    end
+    return RallyTools.make_api_request(update_path, env, payload: payload, patch: true)
   end
 
-  def create_on_env env=@remote
+  def create_on_env env
     payload = create_payload env
-    p payload
     path = "/presets"
-    begin
-      response = RallyTools.make_api_request(path, env, payload: payload)
-      return response
-    rescue HTTPRequestError => e
-      p e.msg
-    end
+    RallyTools.make_api_request(path, env, payload: payload)
   end
 
+  # file path constants
   def get_path
     ENV["rally_repo_path"] + "/silo-presets/" + @path
   end
@@ -145,6 +139,8 @@ class Preset < Serializable
     ENV["rally_repo_path"] + "/silo-metadata/" + @path + "_md.json"
   end
 
+  # this is special handling for binary files, because the rally api returns
+  # binaries as python-type binary encoded strings.
   def code_binary
     return code_zip if code_is_zip?
     @code
@@ -165,6 +161,7 @@ class Preset < Serializable
     eval(code)
   end
 
+  # write both the preset code and the preset metadata to a file
   def save
     File.open(get_metadata_path, "w") do |f|
       f.write(JSON.pretty_generate @metadata)
@@ -202,7 +199,10 @@ class Preset < Serializable
     end
   end
 
+  # takes a list of strings, returns back all strings that were found in the code
   def parse_code_for_strings string_list
+    return [] if not @code
+
     matches = []
 
     string_list.each do |x|
@@ -222,11 +222,14 @@ class Preset < Serializable
   def self.find_by_name name
     Preset.all_presets.find {|x| x.name == name}
   end
+  # This produces our standard name header,
   def prepend_preset_name_to_code
     return if not @code
+    # Only prepend name to evaluates, although other comment formats may be ok.
     return if provider_name != "SdviEvaluate"
     throw if not @name
     return if find_name_in_preset
+
     name_search = Regexp.new "^#{@name}$"
     if name_search =~ @code
       @code.sub! @name, "name: #{@name}"
@@ -238,13 +241,12 @@ class Preset < Serializable
   end
 
   def self.download_all env, suppress: false
-      data = RallyTools.download_all("/presets?page=1p50", env, suppress: suppress) do |x|
+      RallyTools.download_all("/presets?page=1p50", env, suppress: suppress) do |x|
         {
           data: x,
           code: RallyTools.get_preset_code(x['id'], env)
         }
       end
-      return data
   end
 
   def map_ids_to_names
