@@ -9,11 +9,11 @@ class Preset < Serializable
   extend DownloadableCache
 
   attr_accessor :name, :code
-  attr_reader :type, :id, :rule_matches, :metadata
+  attr_reader :type, :id, :rule_matches
   @@has_attribs = false
 
   class << self
-    attr_accessor :all_presets, :code_match
+    attr_accessor :code_match
 
     # this matches rules like "OR132 Blah blah", but is not reliable enough to
     # use. Instead, try using `parse_code_for_strings` and passing all known
@@ -24,8 +24,7 @@ class Preset < Serializable
   #This creates a preset class and does some initialization
   #  :local, <path>
   #  :silo, <attributes>, <code>, remote: remoteSilo
-  def initialize type, data, code='', remote: :UAT
-    @remote = remote
+  def initialize type, data, code='', remote: nil
     @type = type
     if @type == :local
       @path = data
@@ -36,8 +35,18 @@ class Preset < Serializable
       rescue Errno::ENOENT
         @metadata = {}
         puts "Metadata file not found. No action"
+        #fill out some basic info for evals
+        if @path.end_with? ".py"
+          @metadata["providerName"] = "SdviEvaluate"
+          @metadata["providerSettings"] = {
+            "OutputStorageName" => nil,
+            "PresetName": @name,
+            "ProxyTypeName": nil,
+          }
+        end
       end
     elsif @type == :silo
+      @remote = remote
       @path = nil
       @id = data["id"]
       code = nil if code == "None"
@@ -63,13 +72,12 @@ class Preset < Serializable
         "providerName" => provider["name"],
         "providerSettings" => @providerSettings,
       }
-
       remove_instance_variable(:@providerSettings)
-    end
 
-    #special zip handling for usability
-    if @providerDataFilename and @providerDataFilename.end_with? ".zip"
-      @path = @path + ".zip"
+      #special zip handling for usability
+      if @providerDataFilename and @providerDataFilename.end_with? ".zip"
+        @path = @path + ".zip"
+      end
     end
   end
 
@@ -77,14 +85,15 @@ class Preset < Serializable
   def get_id_on_env env=@remote
     @remote_id ||= {env => @id}
     return @remote_id[env] if @remote_id[env]
-    @remote_id[env] = RallyTools.get_rally_id_for_preset_name(@name, env)
+    id = RallyTools.get_rally_id_for_preset_name(@name, env)
+    @remote_id[env] = id
   end
   def put_code_on_env env=@remote
     id = get_id_on_env env
 
     update_path = "/presets/#{id}/providerData"
     begin
-      response = RallyTools.make_api_request(update_path, env, payload: code_binary, put: true)
+      response = RallyTools.make_api_request(update_path, env, body: code_binary(), put: true)
     rescue HTTPRequestError => e
       p e.msg
     end
@@ -94,6 +103,7 @@ class Preset < Serializable
   def provider_settings; @metadata["providerSettings"]; end
 
   def create_payload env
+    raise RallyMatchNotFoundError if not provider_name
     provider_id = ProviderCache.envs[env].find_id_by_name provider_name
 
     {
@@ -142,23 +152,14 @@ class Preset < Serializable
   # this is special handling for binary files, because the rally api returns
   # binaries as python-type binary encoded strings.
   def code_binary
-    return code_zip if code_is_zip?
-    @code
+    if code_binary?
+      return @code[8..-1].unpack("m")
+    else
+      return @code
+    end
   end
-  def code_is_zip?
-    @code.start_with?("b") &&
-    @code[1] == "'" &&
-    @code[-1] == "'"
-  end
-  def code_zip
-    #special handling for zip files
-    code = @code[1..-1]
-    code.gsub!('"', '\"')
-    code.gsub!('\\\'', '\'')
-    code[0] = '"'
-    code[-1] = '"'
-
-    eval(code)
+  def code_binary?
+    return @code[0..8] == "=BASE64="
   end
 
   # write both the preset code and the preset metadata to a file
@@ -189,6 +190,18 @@ class Preset < Serializable
     end
     name
   end
+  def find_test_in_preset
+    test_matches = /autotest:\s([\w\d. \/]+),\s?([\w\d. \/]+),\s?([\w\d. \/]+)[\r\s]?$/.match(@code)
+    begin
+      return {
+        rule_name: test_matches[1],
+        movie_name: test_matches[2],
+        env: test_matches[3].intern
+      }
+    rescue NoMethodError
+      return nil
+    end
+  end
   def find_name_in_preset
     name_matches = /name:\s([\w\d. \/]+)[\r\s]?$/.match(@code)
     begin
@@ -216,11 +229,11 @@ class Preset < Serializable
     matches
   end
 
-  def self.find_by_id id
-    Preset.all_presets.find {|x| x.id == id}
+  def self.find_by_id env, id
+    Preset[env].find {|x| x.id == id}
   end
-  def self.find_by_name name
-    Preset.all_presets.find {|x| x.name == name}
+  def self.find_by_name env, name
+    Preset[env].find {|x| x.name == name}
   end
   # This produces our standard name header,
   def prepend_preset_name_to_code
@@ -240,21 +253,41 @@ class Preset < Serializable
     end
   end
 
-  def self.download_all env, suppress: false
-      RallyTools.download_all("/presets?page=1p50", env, suppress: suppress) do |x|
-        {
-          data: x,
-          code: RallyTools.get_preset_code(x['id'], env)
-        }
-      end
+  def self.download_all env, suppress: false, updatedSince: 0
+    return [] if updatedSince != 0
+    #ignore updatedSince for now
+
+    RallyTools.download_all("/presets?page=1p10", env, suppress: suppress) do |x|
+      {
+        "data" => x,
+        "code" => Preset.get_preset_code(x['id'], env)
+      }
+    end
   end
 
-  def map_ids_to_names
+  def self.get_preset_code(preset_id, env)
+    return "--code--" if true
+
+    body, resp = RallyTools.make_api_request("/presets/#{preset_id}/providerData", env, never_json: true, return_http: true)
+    if resp.headers["Content-Type"] == "application/octet-stream"
+      body = "=BASE64=" + [body].pack("m")
+    end
+
+    body
+  end
+
+  class << self
+    def [] env
+      @@all_presets ||= {}
+      @@all_presets[env] ||= Preset.cache_env env
+      @@all_presets[env]
+    end
+    def cache_env env
+      data = Preset.serialized_download "preset", env
+      data.map! {|x| Preset.new :silo, x["data"], x["code"]}
+      #data.each {|x| x.map_ids_to_names}
+      data
+      #Preset.serialized_save data
+    end
   end
 end
-
-data = Preset.serialized_download "preset", :UAT
-data.map! {|x| Preset.new :silo, x["data"], x["code"]}
-Preset.all_presets = data
-data.each {|x| x.map_ids_to_names}
-Preset.serialized_save data

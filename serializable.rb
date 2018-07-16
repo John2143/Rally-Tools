@@ -4,7 +4,11 @@ require "json"
 def safe_id r
   dat = r["data"]
   return if dat == nil
-  dat["id"].to_i
+  if dat.is_a?(Array)
+    return dat.map {|x| x["id"].to_i}
+  else
+    dat["id"].to_i
+  end
 end
 
 class Serializable
@@ -50,30 +54,40 @@ module DownloadableCache
   end
 
   def serialized_download type, env
-    data = nil
+    current_data = nil
     @ident = "#{type}s_#{env}"
     file = File.join DownloadableCache.dirname, "all_#{@ident}.json"
     begin
       f = File.read(file)
-      data = JSON.parse(f)
+      current_data = JSON.parse(f)
       puts "Got #{@ident} from file"
     rescue
-      puts "Building #{@ident} cache..."
-      # call #download_all method in a class
-      classname = type.capitalize
-      c = Object.const_get(classname)
-      data = c.download_all env
-
-      puts "Downloaded"
-
-      p data
-      #save the unparsed data
-      File.open(file, "w"){|f| f.write JSON.pretty_generate(data)}
-      DownloadableCache.metadata["last_downlaod"][@ident] = Time.now.to_i
-      DownloadableCache.metadata_save
+      current_data = []
     end
 
-    data
+    last_update = DownloadableCache.metadata["last_download"][@ident] || 0
+
+    puts "Building #{@ident} cache..."
+    # call #download_all method in a class
+    classname = type.capitalize
+    c = Object.const_get(classname)
+    new_data = c.download_all env, updatedSince: last_update
+
+    puts "Downloaded #{new_data.length} updates"
+
+    #save the unparsed data
+    DownloadableCache.metadata["last_download"][@ident] = Time.now.to_i * 1000
+    DownloadableCache.metadata_save
+
+    updated_items = []
+    new_data.each do |new|
+      updated_items << new["id"]
+    end
+    current_data.select! {|e| not updated_items.include? e["id"]}
+
+    all_data = current_data + new_data
+    File.open(file, "w"){|f| f.write JSON.pretty_generate(all_data)}
+    all_data
   end
   # save parsed data
   def serialized_save data

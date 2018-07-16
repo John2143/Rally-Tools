@@ -19,6 +19,7 @@ OptionParser.new do |parser|
 end.parse!
 
 preset = Preset.new(:local, options[:file])
-deployment = Deployment.new([preset], options[:env])
+p preset.find_test_in_preset
+deployment = Deployment.new([preset], options[:env], preset.find_test_in_preset)
 deployment.deploy()
 p deployment.get_results()

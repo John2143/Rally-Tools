@@ -31,7 +31,7 @@ class RallyPRODModifyError < StandardError
 end
 
 class RallyTools
-  def self.make_api_request(path, env_name, path_override: nil, payload: nil, one_line: false, suppress: false, patch: false, put: false, never_json: false)
+  def self.make_api_request(path, env_name, path_override: nil, payload: nil, one_line: false, suppress: false, patch: false, put: false, never_json: false, return_http: false, body: nil)
     puts "Possibly unsuppored env #{env_name}" if not [:DEV, :UAT, :PROD].include? env_name
     rally_api_key = ENV["rally_api_key_#{env_name}"]
     rally_api = ENV["rally_api_url_#{env_name}"]
@@ -42,15 +42,15 @@ class RallyTools
 
     # make the request
     print "Making request for path: #{path} #{endchar}" if !suppress
-    if payload
+    if payload or body
       raise RallyPRODModifyError if env_name == "PROD" and ENV["rally_allow_modify_PROD"] != "allowed"
 
       if patch
-        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).patch(path, json: payload)
+        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).patch(path, json: payload, body: body)
       elsif put
-        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).put(path, json: payload)
+        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).put(path, json: payload, body: body)
       else
-        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).post(path, json: payload)
+        resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).post(path, json: payload, body: body)
       end
     else
       resp = HTTP.accept(:json).auth("Bearer " + rally_api_key).get(path)
@@ -69,6 +69,9 @@ class RallyTools
       body = JSON[resp.body]
     rescue JSON::ParserError
       body = resp.body.to_s
+    end
+    if return_http
+      return body, resp
     end
     return body
   end
@@ -104,6 +107,12 @@ class RallyTools
   end
   def self.get_rally_id_for_preset_name(preset_name, env)
     self.get_rally_id "/presets?filter=name=#{URI::escape(preset_name)}", env
+  end
+  def self.get_rally_id_for_notification_name(preset_name, env)
+    self.get_rally_id "/notificationPresets?filter=name=#{URI::escape(preset_name)}", env
+  end
+  def self.get_name_for_notification_id(id, env)
+    self.get_rally_id "/notificationPresets/#{id}", env
   end
 
   def self.get_metadata_for_movie_id(movie_id, env, suppress: false)
@@ -187,10 +196,6 @@ class RallyTools
     }
   end
 
-  def self.get_preset_code(preset_id, env)
-    resp = RallyTools.make_api_request("/presets/#{preset_id}/providerData", env, never_json: true)
-  end
-
   def self.get_next_page(response)
     begin
       return response['links']['next'] rescue NoMethodError
@@ -208,7 +213,6 @@ class RallyTools
       resp["data"].each do |x|
         data << yield(x)
       end
-      break
     end
     return data
   end

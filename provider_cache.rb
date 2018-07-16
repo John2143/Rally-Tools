@@ -62,11 +62,13 @@ class ProviderCache
     @providers.each do |id, x|
       return x if x["name"] == name
     end
+    return nil
   end
 end
 
 ProviderCache.new :UAT
 ProviderCache.new :DEV
+#ProviderCache.new :PROD
 
 #unit testing
 if __FILE__ == $0

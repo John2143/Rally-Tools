@@ -22,11 +22,6 @@ OptionParser.new do |parser|
   end
 end.parse!
 
-# Get time of last commit
-unix_commit_time = Integer(`git log --format="%at" -n1`) * 1000
-
-# update rules here
-#TODO
 
 def tty_prompt_rules rules
   prompt = TTY::Prompt.new
@@ -45,8 +40,16 @@ def tty_prompt_rules rules
 end
 
 def prompt options
+  # Get time of last commit
+  unix_commit_time = Integer(`git log --format="%at" -n1`) * 1000
+
+  # update rules here
+  p options[:env]
+  #p Rule[options[:env]]
+  rules = Rule[options[:env]].select {|rule| rule.updatedAt >= unix_commit_time}
+
   if options[:type] == "tty"
-    tty_prompt_rules Rule.all_rules
+    tty_prompt_rules rules
   #elsif options[:type] = "atom"
     #atom_prompt_rules
   else

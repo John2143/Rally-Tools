@@ -1,27 +1,29 @@
 require_relative "../rule.rb"
 require_relative "../preset.rb"
 
-puts "#{Rule.all_rules.count} rules"
-puts "#{Preset.all_presets.count} presets"
+env = :UAT
 
-Rule.all_rules.each {|x| x.associate_related}
-Preset.all_presets.each {|x| x.prepend_preset_name_to_code}
+puts "#{Rule[env].count} rules"
+puts "#{Preset[env].count} presets"
 
-def calculate_supply_chain start
-  rule_queue = [Rule.find_by_name(start)]
+Rule.env_init env
+Preset[env].each {|x| x.prepend_preset_name_to_code}
+
+def calculate_supply_chain env, start
+  rule_queue = [Rule.find_by_name(env, start)]
   preset_name_queue = []
 
   return nil, nil if not rule_queue.first
 
   rules_processed = []
-  rule_names   =   Rule.all_rules  .map {|x| x.name}
-  preset_names = Preset.all_presets.map {|x| x.name}
+  rule_names   =   Rule[env].map {|x| x.name}
+  preset_names = Preset[env].map {|x| x.name}
 
   rule_queue.each do |rule|
     rulename = nil
     if rule.is_a? String
       rulename = rule
-      rule = Rule.find_by_name rulename
+      rule = Rule.find_by_name env, rulename
     else
       rulename = rule.name
     end
@@ -40,7 +42,7 @@ def calculate_supply_chain start
 
     rule.next_rules = []
     rule._cpreset.parse_code_for_strings(rule_names).each do |x|
-      next_rule = Rule.find_by_name x
+      next_rule = Rule.find_by_name env, x
       return puts "Fatal error: Rule not found #{x}" if not next_rule
       rule_queue << next_rule
       rule.next_rules << next_rule
@@ -56,7 +58,7 @@ def calculate_supply_chain start
   rule_queue.uniq!
   preset_name_queue.uniq!
 
-  preset_queue = preset_name_queue.map! {|x| Preset.find_by_name x}
+  preset_queue = preset_name_queue.map! {|x| Preset.find_by_name env, x}
 
   return rule_queue, preset_queue
 end
@@ -70,7 +72,7 @@ files = [
 ]
 
 files.each do |name|
-  rules, presets = calculate_supply_chain name
+  rules, presets = calculate_supply_chain env, name
   if not rules
     puts "Supply chain not available: #{name}"
   else
